@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">RecyclerStaggeredStickyHeaderView</string>
+
+    <string name="title_today">Today</string>
+    <string name="title_yesterday">Yesterday</string>
+    <string name="title_month">This Month</string>
+    <string name="title_month_num">%1$d Month</string>
+    <string name="title_year_num">%1$d Year</string>
+
+    <string name="label_monday">Monday</string>
+    <string name="label_tuesday">Tuesday</string>
+    <string name="label_wednesday">Wednesday</string>
+    <string name="label_thursday">Thursday</string>
+    <string name="label_friday">Friday</string>
+    <string name="label_saturday">Saturday</string>
+    <string name="label_sunday">Sunday</string>
+</resources>
