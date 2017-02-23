@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eggsy.recyclerstaggeredstickyheader.adapter.LocalPicturesAdapter;
+import com.eggsy.recyclerstaggeredstickyheader.bean.LocalPictureDateResult;
 import com.eggsy.recyclerstaggeredstickyheader.bean.WrapLocalPictureDetailInfo;
 
 import java.util.ArrayList;
@@ -118,7 +119,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     @Override
-    public void refreshLocalPictures() {
+    public void refreshLocalPictures(LocalPictureDateResult scanLocalDataResult) {
+        mAdapter.setImagePaths(scanLocalDataResult.getLocalPictureInfos());
         mAdapter.notifyDataSetChanged();
         mRootLayout.setRefreshing(false);
     }

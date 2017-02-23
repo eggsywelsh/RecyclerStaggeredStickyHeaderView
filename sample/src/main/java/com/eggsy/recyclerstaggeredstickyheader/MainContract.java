@@ -2,6 +2,8 @@ package com.eggsy.recyclerstaggeredstickyheader;
 
 import android.support.annotation.NonNull;
 
+import com.eggsy.recyclerstaggeredstickyheader.bean.LocalPictureDateResult;
+
 /**
  * Created by eggsy on 17-1-6.
  */
@@ -10,7 +12,7 @@ public interface MainContract {
 
     interface View {
 
-        void refreshLocalPictures();
+        void refreshLocalPictures(LocalPictureDateResult scanLocalDataResult);
 
     }
 

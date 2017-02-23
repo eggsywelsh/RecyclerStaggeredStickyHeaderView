@@ -8,8 +8,7 @@ import com.eggsy.recyclerstaggeredstickyheader.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.HashSet;
 import java.util.Locale;
 
 import static com.eggsy.recyclerstaggeredstickyheader.bean.WrapLocalPictureDetailInfo.DATA_TYPE_TITLE;
@@ -28,13 +27,34 @@ public class LocalPictureDateResult {
     private DateParseFilter mDateParseFilter;
 
     /**
-     * relationship between local picture details and picture date string
+     * save the positions of title in the data collections
      */
-    LinkedHashMap<String, ArrayList<WrapLocalPictureDetailInfo>> addDatePictureMap = new LinkedHashMap<>();
+    int[] mArrayTitlePos;
+
+    /**
+     * title collection
+     */
+    private HashSet<String> titleSet ;
+
+    /**
+     * pictures collection,include title and picture details
+     */
+    ArrayList<WrapLocalPictureDetailInfo> mLocalPictureInfos;
 
     public LocalPictureDateResult(Context context) {
         this.mContext = context;
         this.mDateParseFilter = new DateParseFilter();
+        this.mLocalPictureInfos = new ArrayList<>();
+        this.titleSet = new HashSet<>();
+        this.mArrayTitlePos = new int[8];
+    }
+
+    public ArrayList<WrapLocalPictureDetailInfo> getLocalPictureInfos() {
+        return mLocalPictureInfos;
+    }
+
+    public int[] getArrayTitlePos() {
+        return mArrayTitlePos;
     }
 
     /**
@@ -44,22 +64,25 @@ public class LocalPictureDateResult {
      */
     public void add(LocalPictureDetailInfo detailInfo) {
         String dateTimeStr = mDateParseFilter.parse(detailInfo.getModifiedDate());
-        ArrayList<WrapLocalPictureDetailInfo> timeFolderDatas = addDatePictureMap.get(dateTimeStr);
-        if (timeFolderDatas == null) {
-            timeFolderDatas = new ArrayList<>();
+        if (!titleSet.contains(dateTimeStr)) {
+            titleSet.add(dateTimeStr);
+            if(titleSet.size()> mArrayTitlePos.length){
+                int[] newArrayTitlePos = new int[mArrayTitlePos.length*2];
+                System.arraycopy(mArrayTitlePos,0,newArrayTitlePos,0, mArrayTitlePos.length);
+                mArrayTitlePos = newArrayTitlePos;
+            }
+            mArrayTitlePos[titleSet.size()-1] = mLocalPictureInfos.size();
+
+            // add title object
             WrapLocalPictureDetailInfo titleInfo = new WrapLocalPictureDetailInfo(dateTimeStr, DATA_TYPE_TITLE);
-            timeFolderDatas.add(titleInfo);
+            mLocalPictureInfos.add(titleInfo);
+            // add content object
             WrapLocalPictureDetailInfo contentInfo = new WrapLocalPictureDetailInfo(detailInfo);
-            timeFolderDatas.add(contentInfo);
-            addDatePictureMap.put(dateTimeStr, timeFolderDatas);
+            mLocalPictureInfos.add(contentInfo);
         } else {
-            timeFolderDatas.add(new WrapLocalPictureDetailInfo(detailInfo));
+            mLocalPictureInfos.add(new WrapLocalPictureDetailInfo(detailInfo));
         }
 
-    }
-
-    public HashMap<String, ArrayList<WrapLocalPictureDetailInfo>> getAddDatePictureMap() {
-        return addDatePictureMap;
     }
 
     private class DateParseFilter {

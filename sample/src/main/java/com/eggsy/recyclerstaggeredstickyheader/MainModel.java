@@ -20,8 +20,11 @@ public class MainModel {
 
     Context mContext;
 
+    LocalPictureDateResult localPictureDateResult;
+
     public MainModel(Context context) {
         this.mContext = context;
+        this.localPictureDateResult = new LocalPictureDateResult(context);
     }
 
     public LocalPictureDateResult loadAllLocalPictures() {
@@ -32,7 +35,7 @@ public class MainModel {
 
         Log.i(TAG, mImageUri.getPath());
 
-        //只查询jpeg和png的图片
+        // query only jpeg and png image type files
         Cursor mCursor = mContentResolver.query(mImageUri, null,
                 MediaStore.Images.Media.MIME_TYPE + "=? or "
                         + MediaStore.Images.Media.MIME_TYPE + "=?",
@@ -40,7 +43,7 @@ public class MainModel {
 
         if (mCursor != null) {
             while (mCursor.moveToNext()) {
-                //获取图片的路径
+                //retrive image path
                 String path = mCursor.getString(mCursor
                         .getColumnIndex(MediaStore.Images.Media.DATA));
 
@@ -56,8 +59,6 @@ public class MainModel {
                 long addedData = mCursor.getLong(mCursor.
                         getColumnIndex(MediaStore.Images.Media.DATE_ADDED));
 
-//                java.text.DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault());
-
                 if (path==null || "".equals(path) || width == 0 || height == 0 || modifiedData == 0) {
                     continue;
                 }
@@ -67,7 +68,6 @@ public class MainModel {
                 result.add(lpi);
             }
 
-            //通知Handler扫描图片完成
             mCursor.close();
         }
 

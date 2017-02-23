@@ -37,6 +37,10 @@ public class LocalPicturesAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.columnNums = columnNums;
     }
 
+    public void setImagePaths(List<WrapLocalPictureDetailInfo> imagePaths){
+        this.mImagePaths = imagePaths;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder;
