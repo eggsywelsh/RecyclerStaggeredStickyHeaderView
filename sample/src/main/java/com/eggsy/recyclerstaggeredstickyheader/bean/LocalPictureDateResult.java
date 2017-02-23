@@ -71,6 +71,7 @@ public class LocalPictureDateResult {
                 System.arraycopy(mArrayTitlePos,0,newArrayTitlePos,0, mArrayTitlePos.length);
                 mArrayTitlePos = newArrayTitlePos;
             }
+            // save title position
             mArrayTitlePos[titleSet.size()-1] = mLocalPictureInfos.size();
 
             // add title object
