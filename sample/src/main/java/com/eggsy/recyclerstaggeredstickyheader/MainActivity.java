@@ -120,7 +120,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     @Override
     public void refreshLocalPictures(LocalPictureDateResult scanLocalDataResult) {
-        mAdapter.setImagePaths(scanLocalDataResult.getLocalPictureInfos());
+        mAdapter.setImagePaths(scanLocalDataResult!=null ? scanLocalDataResult.getLocalPictureInfos()
+                : new ArrayList<WrapLocalPictureDetailInfo>());
         mAdapter.notifyDataSetChanged();
         mRootLayout.setRefreshing(false);
     }

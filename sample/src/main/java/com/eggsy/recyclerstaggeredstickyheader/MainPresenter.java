@@ -41,7 +41,6 @@ public class MainPresenter extends MainContract.Presenter<MainContract.View> {
                 mMainActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-//                        handleLoadlocalPictureResult(scanLocalDataResult);
                         mViewProxy.refreshLocalPictures(scanLocalDataResult);
                     }
                 });
