@@ -21,11 +21,8 @@ public class MainModel {
 
     Context mContext;
 
-    LocalPictureDateResult localPictureDateResult;
-
     public MainModel(Context context) {
         this.mContext = context;
-        this.localPictureDateResult = new LocalPictureDateResult(context);
     }
 
     public LocalPictureDateResult loadAllLocalPictures() {
