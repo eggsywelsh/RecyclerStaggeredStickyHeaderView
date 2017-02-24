@@ -16,7 +16,7 @@ import static com.eggsy.recyclerstaggeredstickyheader.bean.WrapLocalPictureDetai
 /**
  * Created by eggsy on 17-2-10.
  * <p>
- * 保存本地图片日期与图片信息的关系
+ *
  * save the relationship between local picture details and picture date string
  */
 
@@ -29,7 +29,7 @@ public class LocalPictureDateResult {
     /**
      * save the positions of title in the data collections
      */
-    int[] mArrayTitlePos;
+    ArrayList mArrayTitlePos;
 
     /**
      * title collection
@@ -46,14 +46,14 @@ public class LocalPictureDateResult {
         this.mDateParseFilter = new DateParseFilter();
         this.mLocalPictureInfos = new ArrayList<>();
         this.titleSet = new HashSet<>();
-        this.mArrayTitlePos = new int[8];
+        this.mArrayTitlePos = new ArrayList();
     }
 
     public ArrayList<WrapLocalPictureDetailInfo> getLocalPictureInfos() {
         return mLocalPictureInfos;
     }
 
-    public int[] getArrayTitlePos() {
+    public ArrayList getArrayTitlePos() {
         return mArrayTitlePos;
     }
 
@@ -66,13 +66,8 @@ public class LocalPictureDateResult {
         String dateTimeStr = mDateParseFilter.parse(detailInfo.getModifiedDate());
         if (!titleSet.contains(dateTimeStr)) {
             titleSet.add(dateTimeStr);
-            if(titleSet.size()> mArrayTitlePos.length){
-                int[] newArrayTitlePos = new int[mArrayTitlePos.length*2];
-                System.arraycopy(mArrayTitlePos,0,newArrayTitlePos,0, mArrayTitlePos.length);
-                mArrayTitlePos = newArrayTitlePos;
-            }
             // save title position
-            mArrayTitlePos[titleSet.size()-1] = mLocalPictureInfos.size();
+            mArrayTitlePos.add(mLocalPictureInfos.size());
 
             // add title object
             WrapLocalPictureDetailInfo titleInfo = new WrapLocalPictureDetailInfo(dateTimeStr, DATA_TYPE_TITLE);
